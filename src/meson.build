@@ -5,11 +5,6 @@
 config = configuration_data()
 config.set_quoted('APP_ID', application_id)
 config.set_quoted('APP_PATH', path_identifier)
-if get_option('profile') == 'default'
-  config.set_quoted('NAME_SUFFIX', '')
-else
-  config.set_quoted('NAME_SUFFIX', ' (Development)')
-endif
 config.set_quoted('VERSION', meson.project_version())
 config.set_quoted('GETTEXT_PACKAGE', meson.project_name())
 config.set_quoted('LOCALEDIR', localedir)

@@ -6,7 +6,7 @@ use gtk::{gio, glib};
 use he::prelude::*;
 use he::subclass::prelude::*;
 
-use crate::config::{APP_ID, APP_PATH, NAME_SUFFIX, VERSION};
+use crate::config::{APP_ID, APP_PATH, VERSION};
 use crate::window::ApplicationWindow;
 
 mod imp {
@@ -88,7 +88,7 @@ impl Application {
     fn show_about_dialog(&self) {
         he::AboutWindow::new(
             &self.active_window().expect("Expected an Active Window"),
-            &(gettext("Rust Template") + NAME_SUFFIX),
+            &(gettext("Rust Template")),
             APP_ID,
             VERSION,
             APP_ID,
@@ -106,7 +106,7 @@ impl Application {
 
     pub fn run(&self) -> glib::ExitCode {
         info!("Rust Template ({})", APP_ID);
-        info!("Version: {} {}", VERSION, NAME_SUFFIX);
+        info!("Version: {}", VERSION);
 
         ApplicationExtManual::run(self)
     }
