@@ -12,62 +12,12 @@ subdir('ui')
 
 desktop_conf = configuration_data()
 desktop_conf.set('icon', application_id)
-desktop_file = i18n.merge_file(
-  input: configure_file(
-    input: 'app.desktop.in.in',
-    output: application_id + '.desktop.in',
-    configuration: {
-      'icon': application_id,
-      'command': base_id,
-    },
-  ),
-  output: application_id + '.desktop',
-  po_dir: podir,
-  type: 'desktop',
-  install: true,
-  install_dir: datadir / 'applications'
-)
 
-if desktop_file_validate.found()
-  test(
-    'validate-desktop',
-    desktop_file_validate,
-    args: [
-      desktop_file.full_path()
-    ],
-    depends: desktop_file,
-  )
-endif
 
 # Appstream is a standard specification for representing additional metadata about applications.
 # This metadata will be used within software centers, such as tauOS's catalogue.
 # For more information about appstream, see https://www.freedesktop.org/software/appstream/docs/
 # There's also a generator that you might find useful: https://www.freedesktop.org/software/appstream/metainfocreator/
-
-appdata_file = i18n.merge_file(
-  input: configure_file(
-    input: 'appdata.xml.in.in',
-    output: application_id + '.appdata.xml.in',
-    configuration: {
-      'app-id': application_id,
-      'gettext-package': gettext_package,
-    },
-  ),
-  output: '@0@.metainfo.xml'.format(application_id),
-  po_dir: podir,
-  install: true,
-  install_dir: datadir / 'metainfo'
-)
-
-if appstream_util.found()
-  test(
-    'validate-appdata', appstream_util,
-    args: [
-      'validate', '--nonet', appdata_file.full_path()
-    ],
-    depends: appdata_file,
-  )
-endif
 
 # GSettings provides a simple interface for your application to store user settings.
 # A gschema file declares information about your application's settings.

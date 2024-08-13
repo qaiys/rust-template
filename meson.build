@@ -8,7 +8,6 @@ project(
 
 subproject('blueprint-compiler', required: true)
 
-i18n = import('i18n')
 gnome = import('gnome')
 
 base_id = 'com.fyralabs.RustTemplate'
@@ -30,7 +29,6 @@ localedir = get_option('prefix') / get_option('localedir')
 datadir = get_option('prefix') / get_option('datadir')
 pkgdatadir = datadir / meson.project_name()
 iconsdir = datadir / 'icons'
-podir = meson.project_source_root() / 'po'
 gettext_package = meson.project_name()
 
 if get_option('profile') == 'development'
@@ -65,7 +63,6 @@ if get_option('profile') == 'development'
 endif
 
 subdir('data')
-subdir('po')
 subdir('src')
 
 gnome.post_install(
